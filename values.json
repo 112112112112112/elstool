@@ -1,0 +1,273 @@
+{
+    "stats": [
+        {
+           "effect": "All Skill Damage",
+           "part": "top",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Continuous damage equal to 𝑥% of damage inflicted when hitting for 3 seconds",
+           "part": "top",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Critical Damage",
+           "part": "top",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Reset Cooldown of skill used",
+           "part": "top",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Damage Reduction",
+           "part": "bottom",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "HP",
+           "part": "bottom",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Recovery Item Effect",
+           "part": "bottom",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Polarize",
+           "part": "bottom",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Damage when hitting enemy with more than 50% HP",
+           "part": "bottom",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Damage when hitting enemy with less than 50% HP",
+           "part": "bottom",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Command Attack Damage",
+           "part": "gloves",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Active Skill Damage",
+           "part": "gloves",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Tenacity Skill Damage",
+           "part": "gloves",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Strength Skill Damage",
+           "part": "gloves",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Bravery Skill Damage",
+           "part": "gloves",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Hyperactive Skill Damage",
+           "part": "gloves",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Master Skill Damage",
+           "part": "gloves",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Party's All Skill Damage",
+           "part": "gloves",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Reduced reuse time of Consumables",
+           "part": "shoes",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Reduced Cooldown of Master Skill",
+           "part": "shoes",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "MP Cost Decrease",
+           "part": "shoes",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Party's Movement Speed",
+           "part": "shoes",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Party's Action Speed",
+           "part": "shoes",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Critical",
+           "part": "general",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Maximize",
+           "part": "general",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Damage to Boss Monsters Increase",
+           "part": "general",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Awakening Duration",
+           "part": "general",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "All Attribute Resistance",
+           "part": "general",
+           "type": "flat",
+           "max": 6,
+           "minLI": 1,
+           "minT": 3
+        },
+        {
+           "effect": "Movement Speed",
+           "part": "general",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Jump Speed",
+           "part": "general",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Physical Defense",
+           "part": "general",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Magical Defense",
+           "part": "general",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Damage from Boss Monsters Decrease",
+           "part": "general",
+           "type": "percent",
+           "max": 1,
+           "minLI": 0.5,
+           "minT": 0.7
+        },
+        {
+           "effect": "Replicate",
+           "part": "general",
+           "type": "special"
+        }
+    ]
+}
