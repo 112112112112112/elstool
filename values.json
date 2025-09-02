@@ -140,9 +140,9 @@
            "effect": "Party's All Skill Damage",
            "part": "gloves",
            "type": "percent",
-           "max": 1,
+           "max": 0.8,
            "minLI": 0.5,
-           "minT": 0.7
+           "minT": 0.6
         },
         {
            "effect": "Reduced reuse time of Consumables",
@@ -172,17 +172,17 @@
            "effect": "Party's Movement Speed",
            "part": "shoes",
            "type": "percent",
-           "max": 1,
+           "max": 0.8,
            "minLI": 0.5,
-           "minT": 0.7
+           "minT": 0.6
         },
         {
            "effect": "Party's Action Speed",
            "part": "shoes",
            "type": "percent",
-           "max": 1,
+           "max": 0.8,
            "minLI": 0.5,
-           "minT": 0.7
+           "minT": 0.6
         },
         {
            "effect": "Critical",
