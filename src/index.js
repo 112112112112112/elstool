@@ -13,6 +13,7 @@ fetch("./values.json")
     const circuitOutput = document.getElementById("circuitOutput");
     const circuitOutputImg = document.getElementById("circuitOutputImg");
     const table = document.getElementById("stats");
+    let filteredEffects = [];
     
     const header = table.insertRow();
     Object.keys(stats[0]).forEach(key => {
@@ -61,8 +62,7 @@ fetch("./values.json")
      ** Updates effects dropdown list based on the selected piece (top/bottom/gloves/shoes)
      */
     function updateEffectsList() {
-        const filteredEffects = stats.filter(stat => stat.part === "general" || stat.part === partSelect.value);
-        window.currentFilteredEffects = filteredEffects;
+        filteredEffects = stats.filter(stat => stat.part === "general" || stat.part === partSelect.value);
         effectSelect.innerHTML = "";
 
         filteredEffects.forEach(stat => {
@@ -82,7 +82,7 @@ fetch("./values.json")
     partSelect.addEventListener("change", updateEffectsList);
 
     effectSelect.addEventListener("change", () => {
-        const effect = currentFilteredEffects.find(stat => stat.effect === effectSelect.value);
+        const effect = filteredEffects.find(stat => stat.effect === effectSelect.value);
         if (effect) {
             updateEffectInputs(effect);
         }
