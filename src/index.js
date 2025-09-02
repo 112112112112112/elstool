@@ -44,7 +44,6 @@ fetch("./values.json")
         const max = effect.max ?? min;
         
         valueSelect.innerHTML = "";
-        valueUnit.textContent = type === "percent" ? "%" : "+";
 
         for (let v = min; v <= max; v += step) {
             const value = type === "percent" ? parseFloat(v.toFixed(2)) : v;
@@ -54,7 +53,6 @@ fetch("./values.json")
             valueSelect.appendChild(option);
         }
 
-        valueUnit.textContent = "";
         valueSelect.selectedIndex = 0;
     }
 
