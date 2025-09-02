@@ -4,40 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <title>Document</title>
+    <title>Yumejoshi's Elsword Tools</title>
+    <script src="src/index.js" defer></script>
 </head>
 <body>
-    test :3
     <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>hiiiiii :3</h1>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <h2>Create a circuit</h2>
+                <label class="me-3">Color:
+                    <select name="colorSelect" id="colorSelect">
+                        <option value="red">Compute</option>
+                        <option value="blue">Cycle</option>
+                        <option value="green">Restore</option>
+                    </select>
+                </label>
+                <label class="me-3">Shape:
+                    <select name="shapeSelect" id="shapeSelect">
+                        <option value="i1">I-1</option>
+                        <option value="i2">I-2</option>
+                        <option value="l1">L-1</option>
+                        <option value="l2">L-2</option>
+                        <option value="l3">L-3</option>
+                        <option value="l4">L-4</option>
+                    </select>
+                </label>
+                <label class="me-3">Part:
+                    <select id="partSelect">
+                        <option value="top">Top</option>
+                        <option value="bottom">Bottom</option>
+                        <option value="gloves">Gloves</option>
+                        <option value="shoes">Shoes</option>
+                    </select>
+                </label>
+                <label class="me-3">Effect:
+                    <select id="effectSelect"></select>
+                </label>
+                <label class="me-3">Effect Value:
+                    <select id="valueSelect"></select>
+                    <span id="valueUnit"></span>
+                </label>
+                <button id="circuitBuilder" class="btn btn-info">Create</button>
+                <br>
+                <img id="circuitOutputImg" src=""></img>
+                <p id="circuitOutput"></p>
+            </div>
+        </div>
+    <hr>
         <div class="row">
             <div class="col">
                 <table id="stats" class="table table-dark table-striped"></table>
             </div>
         </div>
     </div>
-    <script>
-        fetch("./values.json")
-            .then(res => res.json())
-            .then(values => {
-                const table = document.getElementById("stats");
-                
-                const header = table.insertRow();
-                Object.keys(values.stats[0]).forEach(key => {
-                    const th = document.createElement("th");
-                    th.textContent = key;
-                    header.appendChild(th);
-                });
-                
-                values.stats.forEach(stat => {
-                    const row = table.insertRow();
-                    Object.values(stat).forEach(v => {
-                        const cell = row.insertCell();
-                        cell.textContent = v;
-                    });
-                });
-            })
-    </script>
-    
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
 </body>
