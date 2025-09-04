@@ -11,8 +11,8 @@ fetch("./values.json")
     const valueUnit = document.getElementById("valueUnit");
     const circuitBuilder = document.getElementById("circuitBuilder");
     const circuitOutput = document.getElementById("circuitOutput");
-    const circuitOutputImg = document.getElementById("circuitOutputImg");
     const table = document.getElementById("stats");
+    let circuitCount = 0;
     let filteredEffects = [];
     
     const header = table.insertRow();
@@ -87,8 +87,16 @@ fetch("./values.json")
     });
 
     circuitBuilder.addEventListener("click", () => {
-        circuitOutputImg.src = `img/${shapeSelect.value}-${partSelect.value}-${colorSelect.value}.png`
-        circuitOutput.textContent = `${effectSelect.value} +${valueSelect.value}`
+        const output = document.createElement("div");
+        const img = document.createElement("img");
+        const text = document.createElement("p");
+        circuitCount++;
+        output.classList.add("col", `circuit-output-${circuitCount}`);
+        img.src = `img/${shapeSelect.value}-${partSelect.value}-${colorSelect.value}.png`;
+        text.textContent = `${effectSelect.value} +${valueSelect.value}`;
+        output.appendChild(img);
+        output.appendChild(text);
+        circuitOutput.appendChild(output);
     })
 
     // initialization
