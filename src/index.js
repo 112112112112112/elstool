@@ -90,12 +90,21 @@ fetch("./values.json")
         const output = document.createElement("div");
         const img = document.createElement("img");
         const text = document.createElement("p");
+        const remove = document.createElement("span");
+
         circuitCount++;
         output.classList.add("col", `circuit-output-${circuitCount}`);
         img.src = `img/${shapeSelect.value}-${partSelect.value}-${colorSelect.value}.png`;
         text.textContent = `${effectSelect.value} +${valueSelect.value}`;
+
+        remove.classList.add(`circuit-remove-${circuitCount}`)
+        remove.textContent = "❌";
+        remove.style.cursor = "pointer";
+        remove.addEventListener("click", () => output.remove());
+
         output.appendChild(img);
         output.appendChild(text);
+        output.appendChild(remove)
         circuitOutput.appendChild(output);
     })
 
