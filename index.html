@@ -17,6 +17,25 @@
         <hr>
         <div class="row">
             <div class="col">
+                <h2>Create a character</h2>
+                <label class="me-3">Name:
+                    <input type="text" id="charName">
+                </label>
+                <label class="me-3">Class:
+                    <select id="charClass">
+                        <!-- TODO add classes dynamically -->
+                        <option value="CaT">CAT</option>
+                        <option value="DeM">DEM</option>
+                    </select>
+                </label>
+                <button id="characterBuilder" class="btn btn-warning">Create Character</button>
+                <select name="" id="characterSelect"></select>
+            </div>
+        </div>
+        <div class="row" id="characterList">
+        </div>
+        <div class="row">
+            <div class="col">
                 <h2>Create a circuit</h2>
                 <label class="me-3">Color:
                     <select name="colorSelect" id="colorSelect">
@@ -50,7 +69,7 @@
                     <select id="valueSelect"></select>
                     <span id="valueUnit"></span>
                 </label>
-                <button id="circuitBuilder" class="btn btn-info">Create</button>
+                <button id="circuitBuilder" class="btn btn-info">Build</button>
                 <br>
                 <img id="circuitOutputImg" src=""></img>
             </div>

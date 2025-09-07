@@ -8,15 +8,23 @@ fetch("./values.json")
     const partSelect = document.getElementById("partSelect");
     const effectSelect = document.getElementById("effectSelect");
     const valueSelect = document.getElementById("valueSelect");
-    const valueUnit = document.getElementById("valueUnit");
+    const characterSelect = document.getElementById("characterSelect")
     const circuitBuilder = document.getElementById("circuitBuilder");
     const inventory = document.getElementById("inventory");
     const table = document.getElementById("stats");
-
+    
     let filteredEffects = [];
     let circuitCount = JSON.parse(localStorage.getItem("circuitCount")) || 0;
-    let inventoryStorage = JSON.parse(localStorage.getItem("circuits")) || [];
     
+    let characters = JSON.parse(localStorage.getItem("characters")) || [];
+    let activeCharacter = characters.length ? characters[0].name : null;
+    const charNameInput = document.getElementById("charName");
+    const charClassSelect = document.getElementById("charClass");
+    const characterBuilder = document.getElementById("characterBuilder");
+    const characterList = document.getElementById("characterList");
+
+    // * DOM * -------------------------------------------------------------------- //
+
     const header = table.insertRow();
     Object.keys(stats[0]).forEach(key => {
         const th = document.createElement("th");
@@ -32,11 +40,10 @@ fetch("./values.json")
         });
     });
 
-    // -------------------------------------------------------------------- //
-    
+    // * CIRCUITS * -------------------------------------------------------------------- //
 
     /**
-     ** Updates effect value unit dropdown list based on its type (percent/flat)
+     *? Updates effect value unit dropdown list based on its type (percent/flat)
      * @param {*} effect 
      */
     function updateEffectInputs(effect) {
@@ -59,7 +66,7 @@ fetch("./values.json")
     }
 
     /**
-     ** Updates effects dropdown list based on the selected piece (top/bottom/gloves/shoes)
+     *? Updates effects dropdown list based on the selected piece (top/bottom/gloves/shoes)
      */
     function updateEffectsList() {
         filteredEffects = stats.filter(stat => stat.part === "general" || stat.part === partSelect.value);
@@ -89,34 +96,45 @@ fetch("./values.json")
     });
 
     /**
-     ** Builds a circuit with ID, image and text
+     *? Build circuit inventory per character
      * @param {*} circuit 
      */
-    function renderCircuit(circuit) {
-        const output = document.createElement("div");
-        const img = document.createElement("img");
-        const text = document.createElement("p");
-        const remove = document.createElement("span");
+    function renderInventory() {
+        inventory.innerHTML = "";
+        if (!activeCharacter) return;
+        const char = characters.find(c => c.name === activeCharacter);
+        if (!char) return;
 
-        output.classList.add("col", `circuit-output-${circuit.id}`);
-        img.src = circuit.img;
-        text.textContent = circuit.text;
+        char.inventory.forEach(circuit => {
+            const output = document.createElement("div");
+            const img = document.createElement("img");
+            const text = document.createElement("p");
+            const remove = document.createElement("span");
 
-        remove.textContent = "❌";
-        remove.style.cursor = "pointer";
-        remove.addEventListener("click", () => {
-            inventoryStorage = inventoryStorage.filter(c => c.id !== circuit.id);
-            localStorage.setItem("circuits",  JSON.stringify(inventoryStorage));
-            output.remove();
+            output.classList.add("col", `circuit-output-${circuit.id}`);
+            img.src = circuit.img;
+            text.textContent = circuit.text;
+
+            remove.textContent = "❌";
+            remove.style.cursor = "pointer";
+            remove.addEventListener("click", () => {
+                char.inventory = char.inventory.filter(c => c.id !== circuit.id);
+                localStorage.setItem("characters",  JSON.stringify(characters));
+                output.remove();
+            });
+        
+            output.appendChild(img);
+            output.appendChild(text);
+            output.appendChild(remove)
+            inventory.appendChild(output);
         });
-    
-        output.appendChild(img);
-        output.appendChild(text);
-        output.appendChild(remove)
-        inventory.appendChild(output);
     }
 
     circuitBuilder.addEventListener("click", () => {
+        if (!activeCharacter) return;
+        const char = characters.find(c => c.name === activeCharacter);
+        if (!char) return;
+
         circuitCount++;
         localStorage.setItem("circuitCount", circuitCount);
 
@@ -126,13 +144,104 @@ fetch("./values.json")
             text: `${effectSelect.value} +${valueSelect.value}`
         };
 
-        inventoryStorage.push(circuit);
-        localStorage.setItem("circuits", JSON.stringify(inventoryStorage));
-        renderCircuit(circuit);
+        char.inventory.push(circuit);
+        localStorage.setItem("characters", JSON.stringify(characters));
+        renderInventory();
     });
 
-    // initialization
+    // * Inventory Initialization
     updateEffectsList();
-    inventoryStorage.forEach(renderCircuit);
-});
+    renderInventory();
 
+    // * CHARACTERS * -------------------------------------------------------------------- //
+
+    // TODO: Refactoring Characters and Inventory
+
+    /**
+     *? Update characters dropdown list
+     */
+    function updateCharactersList() {
+        characterSelect.innerHTML = "";
+        characters.forEach(c => {
+            let option = document.createElement("option");
+            option.value = c.name;
+            option.textContent = c.name;
+            characterSelect.appendChild(option);
+        });
+
+        if (activeCharacter) {
+            characterSelect.value = activeCharacter;
+        }
+    }
+
+    characterSelect.addEventListener("change", () => {
+        activeCharacter = characterSelect.value;
+        renderInventory();
+    });
+
+    /**
+     *? Show a list of every character with their class icon and name
+     */
+    function renderCharacter() {
+        characterList.innerHTML = "";
+        characters.forEach(c => {
+            const output = document.createElement("div");
+            const img = document.createElement("img");
+            const text = document.createElement("span");
+            const remove = document.createElement("span");
+
+            output.classList.add("col", `character-${c.class}-${c.name}`);
+            img.src = `img/classes/${c.class}.png`;
+            img.width = 50;
+            text.textContent = c.name;
+            text.classList.add("mx-2");
+            
+            remove.textContent = "❌";
+            remove.style.cursor = "pointer";
+            remove.addEventListener("click", () => {
+                characters = characters.filter(char => char.name !== c.name);
+                localStorage.setItem("characters",  JSON.stringify(characters));
+
+                if (activeCharacter === c.name) {
+                    activeCharacter = characters.length ? characters[0].name : null;
+                }
+                
+                updateCharactersList();
+                renderInventory();
+                output.remove();
+            });
+            
+            output.appendChild(img);
+            output.appendChild(text);
+            output.appendChild(remove);
+            characterList.appendChild(output);
+        });
+
+        updateCharactersList();
+    }
+
+    characterBuilder.addEventListener("click", () => {
+        const charName = charNameInput.value.trim();
+        const charClass = charClassSelect.value;
+        if (!charName) return alert("You must input a name");
+        if (characters.find(c => c.name === charName)) return alert("There is already a character with that name");
+
+        const newChar = {
+            name: charName,
+            class: charClass,
+            inventory: [],
+            armor: [],
+        };
+
+        characters.push(newChar);
+        localStorage.setItem("characters", JSON.stringify(characters));
+        activeCharacter = charName;
+        renderInventory();
+        renderCharacter();
+        charNameInput.value = "";
+    });
+
+    // Character Initialization
+    renderCharacter();
+    if (activeCharacter) renderInventory();
+});
