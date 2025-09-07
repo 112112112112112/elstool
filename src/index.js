@@ -10,10 +10,12 @@ fetch("./values.json")
     const valueSelect = document.getElementById("valueSelect");
     const valueUnit = document.getElementById("valueUnit");
     const circuitBuilder = document.getElementById("circuitBuilder");
-    const circuitOutput = document.getElementById("circuitOutput");
+    const inventory = document.getElementById("inventory");
     const table = document.getElementById("stats");
-    let circuitCount = 0;
+
     let filteredEffects = [];
+    let circuitCount = JSON.parse(localStorage.getItem("circuitCount")) || 0;
+    let inventoryStorage = JSON.parse(localStorage.getItem("circuits")) || [];
     
     const header = table.insertRow();
     Object.keys(stats[0]).forEach(key => {
@@ -86,29 +88,51 @@ fetch("./values.json")
         }
     });
 
-    circuitBuilder.addEventListener("click", () => {
+    /**
+     ** Builds a circuit with ID, image and text
+     * @param {*} circuit 
+     */
+    function renderCircuit(circuit) {
         const output = document.createElement("div");
         const img = document.createElement("img");
         const text = document.createElement("p");
         const remove = document.createElement("span");
 
-        circuitCount++;
-        output.classList.add("col", `circuit-output-${circuitCount}`);
-        img.src = `img/${shapeSelect.value}-${partSelect.value}-${colorSelect.value}.png`;
-        text.textContent = `${effectSelect.value} +${valueSelect.value}`;
+        output.classList.add("col", `circuit-output-${circuit.id}`);
+        img.src = circuit.img;
+        text.textContent = circuit.text;
 
-        remove.classList.add(`circuit-remove-${circuitCount}`)
         remove.textContent = "❌";
         remove.style.cursor = "pointer";
-        remove.addEventListener("click", () => output.remove());
-
+        remove.addEventListener("click", () => {
+            inventoryStorage = inventoryStorage.filter(c => c.id !== circuit.id);
+            localStorage.setItem("circuits",  JSON.stringify(inventoryStorage));
+            output.remove();
+        });
+    
         output.appendChild(img);
         output.appendChild(text);
         output.appendChild(remove)
-        circuitOutput.appendChild(output);
-    })
+        inventory.appendChild(output);
+    }
+
+    circuitBuilder.addEventListener("click", () => {
+        circuitCount++;
+        localStorage.setItem("circuitCount", circuitCount);
+
+        const circuit = {
+            id: circuitCount,
+            img: `img/${shapeSelect.value}-${partSelect.value}-${colorSelect.value}.png`,
+            text: `${effectSelect.value} +${valueSelect.value}`
+        };
+
+        inventoryStorage.push(circuit);
+        localStorage.setItem("circuits", JSON.stringify(inventoryStorage));
+        renderCircuit(circuit);
+    });
 
     // initialization
     updateEffectsList();
+    inventoryStorage.forEach(renderCircuit);
 });
 
