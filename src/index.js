@@ -157,30 +157,13 @@ fetch("./values.json")
 
     // TODO: Refactoring Characters and Inventory
 
-    /**
-     *? Update characters dropdown list
-     */
-    function updateCharactersList() {
-        characterSelect.innerHTML = "";
-        characters.forEach(c => {
-            let option = document.createElement("option");
-            option.value = c.name;
-            option.textContent = c.name;
-            characterSelect.appendChild(option);
-        });
-
-        if (activeCharacter) {
-            characterSelect.value = activeCharacter;
-        }
-    }
-
     characterSelect.addEventListener("change", () => {
         activeCharacter = characterSelect.value;
         renderInventory();
     });
 
     /**
-     *? Show a list of every character with their class icon and name
+     *? Show a list of every character with their class icon and name and update characters dropdown list
      */
     function renderCharacter() {
         characterList.innerHTML = "";
@@ -204,11 +187,10 @@ fetch("./values.json")
 
                 if (activeCharacter === c.name) {
                     activeCharacter = characters.length ? characters[0].name : null;
+                    renderInventory();
                 }
                 
-                updateCharactersList();
-                renderInventory();
-                output.remove();
+                renderCharacter();
             });
             
             output.appendChild(img);
@@ -217,7 +199,15 @@ fetch("./values.json")
             characterList.appendChild(output);
         });
 
-        updateCharactersList();
+        characterSelect.innerHTML = "";
+        characters.forEach(c => {
+            let option = document.createElement("option");
+            option.value = c.name;
+            option.textContent = c.name;
+            characterSelect.appendChild(option);
+        });
+
+        if (activeCharacter) characterSelect.value = activeCharacter;
     }
 
     characterBuilder.addEventListener("click", () => {
@@ -236,9 +226,9 @@ fetch("./values.json")
         characters.push(newChar);
         localStorage.setItem("characters", JSON.stringify(characters));
         activeCharacter = charName;
+        charNameInput.value = "";
         renderInventory();
         renderCharacter();
-        charNameInput.value = "";
     });
 
     // Character Initialization
