@@ -1,0 +1,242 @@
+[
+    {
+        "name": "AC",
+        "img": "img/classes/AC.png"
+    },
+    {
+        "name": "AD",
+        "img": "img/classes/AD.png"
+    },
+    {
+        "name": "AeS",
+        "img": "img/classes/AeS.png"
+    },
+    {
+        "name": "AN",
+        "img": "img/classes/AN.png"
+    },
+    {
+        "name": "ApS",
+        "img": "img/classes/ApS.png"
+    },
+    {
+        "name": "AV",
+        "img": "img/classes/AV.png"
+    },
+    {
+        "name": "BL",
+        "img": "img/classes/BL.png"
+    },
+    {
+        "name": "BM",
+        "img": "img/classes/BM.png"
+    },
+    {
+        "name": "BQ",
+        "img": "img/classes/BQ.png"
+    },
+    {
+        "name": "CA",
+        "img": "img/classes/CA.png"
+    },
+    {
+        "name": "CaT",
+        "img": "img/classes/CaT.png"
+    },
+    {
+        "name": "CC",
+        "img": "img/classes/CC.png"
+    },
+    {
+        "name": "CE",
+        "img": "img/classes/CE.png"
+    },
+    {
+        "name": "CeT",
+        "img": "img/classes/CeT.png"
+    },
+    {
+        "name": "CL",
+        "img": "img/classes/CL.png"
+    },
+    {
+        "name": "CS",
+        "img": "img/classes/CS.png"
+    },
+    {
+        "name": "CU",
+        "img": "img/classes/CU.png"
+    },
+    {
+        "name": "DA",
+        "img": "img/classes/DA.png"
+    },
+    {
+        "name": "DaB",
+        "img": "img/classes/DaB.png"
+    },
+    {
+        "name": "DB",
+        "img": "img/classes/DB.png"
+    },
+    {
+        "name": "DeM",
+        "img": "img/classes/DeM.png"
+    },
+    {
+        "name": "Devi",
+        "img": "img/classes/Devi.png"
+    },
+    {
+        "name": "DiA",
+        "img": "img/classes/DiA.png"
+    },
+    {
+        "name": "DoM",
+        "img": "img/classes/DoM.png"
+    },
+    {
+        "name": "ES",
+        "img": "img/classes/ES.png"
+    },
+    {
+        "name": "EtW",
+        "img": "img/classes/EtW.png"
+    },
+    {
+        "name": "FB",
+        "img": "img/classes/FB.png"
+    },
+    {
+        "name": "FL",
+        "img": "img/classes/FL.png"
+    },
+    {
+        "name": "FP",
+        "img": "img/classes/FP.png"
+    },
+    {
+        "name": "GB",
+        "img": "img/classes/GB.png"
+    },
+    {
+        "name": "GS",
+        "img": "img/classes/GS.png"
+    },
+    {
+        "name": "HR",
+        "img": "img/classes/HR.png"
+    },
+    {
+        "name": "IM",
+        "img": "img/classes/IM.png"
+    },
+    {
+        "name": "IN",
+        "img": "img/classes/IN.png"
+    },
+    {
+        "name": "KE",
+        "img": "img/classes/KE.png"
+    },
+    {
+        "name": "LA",
+        "img": "img/classes/LA.png"
+    },
+    {
+        "name": "LB",
+        "img": "img/classes/LB.png"
+    },
+    {
+        "name": "MC",
+        "img": "img/classes/MC.png"
+    },
+    {
+        "name": "MN",
+        "img": "img/classes/MN.png"
+    },
+    {
+        "name": "MO",
+        "img": "img/classes/MO.png"
+    },
+    {
+        "name": "MPx",
+        "img": "img/classes/MPx.png"
+    },
+    {
+        "name": "MtM",
+        "img": "img/classes/MtM.png"
+    },
+    {
+        "name": "NI",
+        "img": "img/classes/NI.png"
+    },
+    {
+        "name": "NL",
+        "img": "img/classes/NL.png"
+    },
+    {
+        "name": "NP",
+        "img": "img/classes/NP.png"
+    },
+    {
+        "name": "OM",
+        "img": "img/classes/OM.png"
+    },
+    {
+        "name": "OP",
+        "img": "img/classes/OP.png"
+    },
+    {
+        "name": "OZ",
+        "img": "img/classes/OZ.png"
+    },
+    {
+        "name": "PO",
+        "img": "img/classes/PO.png"
+    },
+    {
+        "name": "PR",
+        "img": "img/classes/PR.png"
+    },
+    {
+        "name": "RaS",
+        "img": "img/classes/RaS.png"
+    },
+    {
+        "name": "RH",
+        "img": "img/classes/RH.png"
+    },
+    {
+        "name": "RM",
+        "img": "img/classes/RM.png"
+    },
+    {
+        "name": "RT",
+        "img": "img/classes/RT.png"
+    },
+    {
+        "name": "RV",
+        "img": "img/classes/RV.png"
+    },
+    {
+        "name": "ShK",
+        "img": "img/classes/ShK.png"
+    },
+    {
+        "name": "SU",
+        "img": "img/classes/SU.png"
+    },
+    {
+        "name": "TB",
+        "img": "img/classes/TB.png"
+    },
+    {
+        "name": "TP",
+        "img": "img/classes/TP.png"
+    },
+    {
+        "name": "TW",
+        "img": "img/classes/TW.png"
+    }
+]
