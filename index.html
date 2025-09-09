@@ -22,14 +22,11 @@
                     <input type="text" id="charName">
                 </label>
                 <label class="me-3">Class:
-                    <select id="charClass">
-                        <!-- TODO add classes dynamically -->
-                        <option value="CaT">CAT</option>
-                        <option value="DeM">DEM</option>
+                    <select id="classSelect">
                     </select>
+                    <img id="classImg" width="50">
                 </label>
                 <button id="characterBuilder" class="btn btn-warning">Create Character</button>
-                <select name="" id="characterSelect"></select>
             </div>
         </div>
         <div class="row" id="characterList">
@@ -74,7 +71,20 @@
                 <img id="circuitOutputImg" src=""></img>
             </div>
         </div>
-        <div id="inventory" class="row">
+        <h2>Inventory</h2>
+        <div id="inventory" class="row"></div>
+        <h2>Armor</h2>
+        <div id="armor" class="row">
+            <div class="col">
+                <h3>Top</h3>
+                <div id="armor-top" class="armor-part row"></div>
+                <h3>Bottom</h3>
+                <div id="armor-bottom" class="armor-part row"></div>
+                <h3>Gloves</h3>
+                <div id="armor-gloves" class="armor-part row"></div>
+                <h3>Shoes</h3>
+                <div id="armor-shoes" class="armor-part row"></div>
+            </div>
         </div>
     <hr>
         <div class="row">

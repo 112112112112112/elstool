@@ -1,16 +1,15 @@
 fetch("./values.json")
 .then(res => res.json())
 .then(values => {
-    // ** Create table based on JSON
     const stats = values.stats;
     const colorSelect = document.getElementById("colorSelect");
     const shapeSelect = document.getElementById("shapeSelect");
     const partSelect = document.getElementById("partSelect");
     const effectSelect = document.getElementById("effectSelect");
     const valueSelect = document.getElementById("valueSelect");
-    const characterSelect = document.getElementById("characterSelect")
     const circuitBuilder = document.getElementById("circuitBuilder");
     const inventory = document.getElementById("inventory");
+    const armor = document.getElementById("armor");
     const table = document.getElementById("stats");
     
     let filteredEffects = [];
@@ -19,12 +18,42 @@ fetch("./values.json")
     let characters = JSON.parse(localStorage.getItem("characters")) || [];
     let activeCharacter = characters.length ? characters[0].name : null;
     const charNameInput = document.getElementById("charName");
-    const charClassSelect = document.getElementById("charClass");
+    const charClassSelect = document.getElementById("classSelect");
+    const charClassImg = document.getElementById("classImg");
     const characterBuilder = document.getElementById("characterBuilder");
     const characterList = document.getElementById("characterList");
 
     // * DOM * -------------------------------------------------------------------- //
 
+    fetch("classes.json")
+    .then(res => res.json())
+    .then(classes => {
+        // * Generate class dropdown list
+        charClassSelect.innerHTML = "";
+
+        const emptyOption = document.createElement("option");
+        emptyOption.value = "";
+        emptyOption.textContent = "-- Choose your class --";
+        emptyOption.disabled = true;
+        emptyOption.selected = true;
+        charClassSelect.appendChild(emptyOption);
+
+        classes.forEach(c => {
+            const option = document.createElement("option");
+            option.value = c.name;
+            option.textContent = c.name;
+            option.dataset.img = c.img;
+            
+            charClassSelect.appendChild(option);
+        });
+    });
+
+    charClassSelect.addEventListener("change", () => {
+        const selectedClass = charClassSelect.selectedOptions[0];
+        charClassImg.src = selectedClass.value ? selectedClass.dataset.img : "";
+    })
+
+    // * Generate table based on circuit values JSON
     const header = table.insertRow();
     Object.keys(stats[0]).forEach(key => {
         const th = document.createElement("th");
@@ -44,8 +73,8 @@ fetch("./values.json")
 
     /**
      *? Updates effect value unit dropdown list based on its type (percent/flat)
-     * @param {*} effect 
-     */
+    * @param {*} effect 
+    */
     function updateEffectInputs(effect) {
         const type = (effect.type ?? "").toLowerCase().trim();
         const step = type === "percent" ? 0.1 : 1;
@@ -67,7 +96,7 @@ fetch("./values.json")
 
     /**
      *? Updates effects dropdown list based on the selected piece (top/bottom/gloves/shoes)
-     */
+    */
     function updateEffectsList() {
         filteredEffects = stats.filter(stat => stat.part === "general" || stat.part === partSelect.value);
         effectSelect.innerHTML = "";
@@ -97,8 +126,8 @@ fetch("./values.json")
 
     /**
      *? Build circuit inventory per character
-     * @param {*} circuit 
-     */
+    * @param {*} circuit 
+    */
     function renderInventory() {
         inventory.innerHTML = "";
         if (!activeCharacter) return;
@@ -110,7 +139,9 @@ fetch("./values.json")
             const img = document.createElement("img");
             const text = document.createElement("p");
             const remove = document.createElement("span");
+            const equip = document.createElement("button");
 
+            // TODO: maybe displaying circuit id doesnt matter
             output.classList.add("col", `circuit-output-${circuit.id}`);
             img.src = circuit.img;
             text.textContent = circuit.text;
@@ -122,14 +153,19 @@ fetch("./values.json")
                 localStorage.setItem("characters",  JSON.stringify(characters));
                 output.remove();
             });
+
+            equip.classList.add("btn")
+            equip.textContent = "🔁";
+            equip.addEventListener("click", () => {
+                moveCircuit(char, circuit, "toArmor");
+            });
         
-            output.appendChild(img);
-            output.appendChild(text);
-            output.appendChild(remove)
+            output.append(img, text, remove, equip);
             inventory.appendChild(output);
         });
     }
 
+    // * Create a circuit and store it in the active character's inventory
     circuitBuilder.addEventListener("click", () => {
         if (!activeCharacter) return;
         const char = characters.find(c => c.name === activeCharacter);
@@ -141,7 +177,8 @@ fetch("./values.json")
         const circuit = {
             id: circuitCount,
             img: `img/${shapeSelect.value}-${partSelect.value}-${colorSelect.value}.png`,
-            text: `${effectSelect.value} +${valueSelect.value}`
+            text: `${effectSelect.value} +${valueSelect.value}`,
+            part: partSelect.value
         };
 
         char.inventory.push(circuit);
@@ -153,18 +190,95 @@ fetch("./values.json")
     updateEffectsList();
     renderInventory();
 
-    // * CHARACTERS * -------------------------------------------------------------------- //
+    // * ARMOR * -------------------------------------------------------------------- //
 
-    // TODO: Refactoring Characters and Inventory
+    function renderArmor() {
+        if (!activeCharacter) return;
+        const char = characters.find(c => c.name === activeCharacter);
+        if (!char) return;
 
-    characterSelect.addEventListener("change", () => {
-        activeCharacter = characterSelect.value;
-        renderInventory();
-    });
+        ["top", "bottom", "gloves", "shoes"].forEach(part => {
+            const col = document.getElementById(`armor-${part}`);
+            col.innerHTML = "";
+
+            // * Armors can have up to 15 circuits per part
+            for (let i = 0; i < 15; i++) {
+                const slot = document.createElement("div");
+                slot.classList.add("armor-slot", "col", "me-2");
+
+                if (char.armor[part][i]) {
+                    const circuit = char.armor[part][i];
+                    const img = document.createElement("img");
+                    const text = document.createElement("p")
+                    const equip = document.createElement("button");
+
+                    img.src = circuit.img;
+                    img.width = 50;
+                    text.textContent = circuit.text;
+                    equip.classList.add("btn");
+                        equip.textContent = "🔁";
+                        equip.addEventListener("click", () => {
+                            moveCircuit(char, circuit, "toInventory");
+                        });
+
+                    slot.append(img, text, equip);
+                } else {
+                    // TODO: move this to actual css
+                    slot.style.border = "1px solid #aaa";
+                    slot.style.height = "50px";
+                    slot.style.width = "50px";
+                }
+                col.appendChild(slot);
+            }
+        });
+    }
 
     /**
-     *? Show a list of every character with their class icon and name and update characters dropdown list
+     * ? Moves a circuit from a character's inventory to their armor or viceversa
+     * @param {*} char 
+     * @param {*} circuit 
+     * @param {*} location (toArmor, toInventory)
+     * @returns 
      */
+    function moveCircuit(char, circuit, location) {
+        /**
+         * TODO: filter slots maybe?? drag and drop??
+         * * Filtering slots would have to check for every possible circuit combination.
+         * * e.g.   Top Piece
+         * *        - x4 I-1
+         * *        - x3 L-1
+         * *        - x3 L-2
+         * *        - x3 L-3
+         * *        - x2 L-4
+         * * Otherwise, see how to make it be able to tell if it's connected or not.
+         * * Display the total buff amount regardless.
+         * TODO: Move circuits between characters' inventories
+         */
+        const part = circuit.part;
+        if (location == "toArmor") {
+            const emptyIndex = char.armor[part].findIndex(c => c === null);
+            if (emptyIndex === -1) return alert(`${part} is already full`);
+    
+            char.armor[part][emptyIndex] = circuit;
+            char.inventory = char.inventory.filter(c => c.id !== circuit.id);
+        } else if (location == "toInventory") {
+            const slotIndex = char.armor[part].findIndex(c => c && c.id === circuit.id);
+            if (slotIndex === -1) return;
+
+            char.armor[part][slotIndex] = null;
+            char.inventory.push(circuit);
+        }
+        
+        localStorage.setItem("characters", JSON.stringify(characters));
+        renderInventory();
+        renderArmor();
+    }
+
+    // * CHARACTERS * -------------------------------------------------------------------- //
+
+    /**
+     *? Show a list of every character with their class icon and name
+    */
     function renderCharacter() {
         characterList.innerHTML = "";
         characters.forEach(c => {
@@ -188,39 +302,43 @@ fetch("./values.json")
                 if (activeCharacter === c.name) {
                     activeCharacter = characters.length ? characters[0].name : null;
                     renderInventory();
+                    renderArmor();
                 }
-                
                 renderCharacter();
-            });
+            }); 
             
-            output.appendChild(img);
-            output.appendChild(text);
-            output.appendChild(remove);
+            output.append(img, text, remove);
             characterList.appendChild(output);
-        });
+            output.style.border = ""
 
-        characterSelect.innerHTML = "";
-        characters.forEach(c => {
-            let option = document.createElement("option");
-            option.value = c.name;
-            option.textContent = c.name;
-            characterSelect.appendChild(option);
+            // ? Update view when swapping to another character
+            output.addEventListener("click", (e) => {
+                if (e.target === remove) return;
+                activeCharacter = c.name;
+                renderInventory();
+                renderArmor();
+            })
         });
-
-        if (activeCharacter) characterSelect.value = activeCharacter;
     }
 
+    // ? Character creation form
     characterBuilder.addEventListener("click", () => {
         const charName = charNameInput.value.trim();
         const charClass = charClassSelect.value;
         if (!charName) return alert("You must input a name");
+        if (!charClass) return alert("You must select a class");
         if (characters.find(c => c.name === charName)) return alert("There is already a character with that name");
 
         const newChar = {
             name: charName,
             class: charClass,
             inventory: [],
-            armor: [],
+            armor: {
+                top: Array(15).fill(null),
+                bottom: Array(15).fill(null),
+                gloves: Array(15).fill(null),
+                shoes: Array(15).fill(null)
+            },
         };
 
         characters.push(newChar);
@@ -228,10 +346,14 @@ fetch("./values.json")
         activeCharacter = charName;
         charNameInput.value = "";
         renderInventory();
+        renderArmor();
         renderCharacter();
     });
 
-    // Character Initialization
+    // Initialization
     renderCharacter();
-    if (activeCharacter) renderInventory();
+    if (activeCharacter) {
+        renderInventory();
+        renderArmor();
+    }
 });
